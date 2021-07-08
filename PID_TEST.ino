@@ -22,7 +22,7 @@ double set_rpm = 0;
 double actual_rpm = 0;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   setupMotors();
   setupEncoders();
 }
@@ -47,8 +47,9 @@ void loop() {
     }  
     prev_MilliSec = now_t;
 
-    //Serial.print(" ");Serial.print(set_rpm);
-    Serial.print(" ");Serial.print(actual_rpm);
+    Serial.print("\t");Serial.print(now_t);
+    Serial.print("\t");Serial.print(set_rpm);
+    Serial.print("\t");Serial.print(actual_rpm);
     //Serial.print(" ");Serial.print(pwm);
     //Serial.print(" ");Serial.print(encoder_counts);
     Serial.println();
