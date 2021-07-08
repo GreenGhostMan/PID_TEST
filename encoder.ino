@@ -12,7 +12,7 @@ void setupEncoders() {
 
  
   attachInterrupt(digitalPinToInterrupt(encoderA), encoder2A, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(encoderB), encoder2B, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(encoderB), encoder2B, CHANGE);
 }
 
 void encoder2A() {
