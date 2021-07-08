@@ -11,13 +11,7 @@
 #include <Wire.h>
 #include "robot_specs.h"
 
-unsigned long lastMilli = 0;   
-
-float Kp = 1.0; 
-float Ki = 0.0;
-float Kd = 0.0;
-double set_rpm = 50;
-double actual_rpm = 0;
+unsigned long prev_MilliSec = 0;   
 
 
 int pwm = 0;
@@ -27,19 +21,15 @@ long prev_encoder_counts = 0;
 
 void setup() {
   Serial.begin(115200);
-  setupMotors();
-  setupEncoders();
+  setupMotors();  
+  
+  pwm = int(255 * 0.0);
 }
 void loop() {
   unsigned long now_t = millis();
-  if (now_t - lastMilli >= 100)   { 
+  
+  if (now_t - prev_MilliSec >= 70)   { 
     
-    long delta_t = now_t - lastMilli;    
-    getMotorData(delta_t);
-    float delta_t_sec = delta_t / 1000.0; 
-    
-    pwm = updatePid(2, pwm, set_rpm, actual_rpm,delta_t_sec);
-    //pwm = 255/2;
     if ( pwm > 0 ) 
     {
       Forward();
@@ -52,7 +42,7 @@ void loop() {
     {
       Release();
     }  
-    lastMilli = now_t;
+    prev_MilliSec = now_t;
 
     //Serial.print(" ");Serial.print(set_rpm);
     //Serial.print(" ");Serial.print(actual_rpm);
