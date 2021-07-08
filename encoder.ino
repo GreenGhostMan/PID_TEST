@@ -1,31 +1,33 @@
+
 void setupEncoders() {
 
-  right_count = 0;
-  prev_count = 0;
+  encoder_counts = 0;
+  prev_encoder_counts = 0;
+  
+  pinMode(encoderA, INPUT);
+  pinMode(encoderB, INPUT);
+  
+  digitalWrite(encoderA, LOW);
+  digitalWrite(encoderB, LOW);
 
-  pinMode(right_encoderA, INPUT);
-  pinMode(right_encoderB, INPUT);
-
-  digitalWrite(right_encoderA, LOW);
-  digitalWrite(right_encoderB, LOW);
-
-  attachInterrupt(0, encoder1A, CHANGE);
-  attachInterrupt(1, encoder1B, CHANGE);
+ 
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoder2A, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoderB), encoder2B, CHANGE);
 }
 
-void encoder1A() {
-  if (digitalRead(right_encoderA) == digitalRead(right_encoderB)) {
-    right_count = right_count - 1;
+void encoder2A() {
+  if (digitalRead(encoderA) == digitalRead(encoderB)) {
+    encoder_counts = encoder_counts + 1;
   }
   else                                                     {
-    right_count = right_count + 1;
+    encoder_counts = encoder_counts - 1;
   }
 }
-void encoder1B() {
-  if (digitalRead(right_encoderA) == digitalRead(right_encoderB)) {
-    right_count = right_count + 1;
+void encoder2B() {
+  if (digitalRead(encoderA) == digitalRead(encoderB)) {
+    encoder_counts = encoder_counts - 1;
   }
   else                                                     {
-    right_count = right_count - 1;
+    encoder_counts = encoder_counts + 1;
   }
 }
