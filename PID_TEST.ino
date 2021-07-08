@@ -11,9 +11,9 @@
 #include <Wire.h>
 #include "robot_specs.h"
 
-// SLAMTEC ROBOT POLOLU 100 RPM DC MOTOR ( LEFT )
-//float Kp=0.13, Ki=0.001, Kd=0.01; // encoder_ticks = 6533 ( 2 pins mode )
-float Kp=0.13, Ki=0.003, Kd=0.015;  // encoder_ticks = 3266.5 ( 1 pins mode )
+// SLAMTEC ROBOT POLOLU 100 RPM DC MOTOR ( RIGHT )
+//float Kp=0.105, Ki=0.0010, Kd=0.01; // encoder_ticks = 6533 ( 2 pins mode )
+float Kp=0.080, Ki=0.0010, Kd=0.0010;  // encoder_ticks = 3266.5 ( 1 pins mode )
 unsigned long prev_MilliSec = 0;   
 
 int pwm = 0;
