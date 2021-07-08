@@ -11,6 +11,7 @@
 #include <Wire.h>
 #include "robot_specs.h"
 
+float Kp=0.7, Ki=0.0, Kd=0.0;
 unsigned long prev_MilliSec = 0;   
 
 int pwm = 0;
@@ -31,7 +32,10 @@ void loop() {
   if (now_t - prev_MilliSec >= 100)   {   
    
     long delta_t = now_t - prev_MilliSec;
+    float delta_t_Sec = delta_t / 1000.0;
+    
     getMotorSpeed(delta_t);
+    pwm = updatePID( pwm, set_rpm, actual_rpm, delta_t_Sec );
     
     if ( pwm > 0 ) 
     {
@@ -47,7 +51,7 @@ void loop() {
     }  
     prev_MilliSec = now_t;
 
-    //Serial.print(" ");Serial.print(set_rpm);
+    Serial.print(" ");Serial.print(set_rpm);
     Serial.print(" ");Serial.print(actual_rpm);
     //Serial.print(" ");Serial.print(pwm);
     //Serial.print(" ");Serial.print(encoder_counts);
